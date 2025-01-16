@@ -1,8 +1,23 @@
 // THIS FILE HAS EVERY FUNCTION THAT YOU PROBABLY NEED TO USE FOR OUR PROJECT
-// btw if someone else is actually using this code, please ignore most of the comments, they are for my groupmates. ty!
+// btw if someone else is actually using this code, please ignore most of the comments, they are for my groupmates. ty! 
 
 int apps = 1;
+int wp_wait = 0;
+int wp_current = 0;
+int pass_correct = 0;
 
+void login(char* pass){
+    char input[50];
+    setcolor(WHITE);
+    outtextxy(10, 10, "passsword: ");
+    textinput(10, 50, input, sizeof(input), "black");
+    px(0, 1000, 0 ,1000, "black");
+    if (strcmp(input, pass) == 0){
+        pass_correct = 1;
+        return;   
+    }
+
+}
 
 void keygrab(int key){ // special part of update
     if (key == 52) { 
@@ -22,9 +37,25 @@ void keygrab(int key){ // special part of update
     // you can do it!!! call me if u need help, i have no life
 }
 
+void changeWP(){
+    if (wp_current == 7){
+        wp_current = -1;
+    }
+    wp_current = wp_current + 1;
+    if (wp_current == 1){
+        wp_current = wp_current + 1;
+    }
+    pxb(0, 1000, 0, 440, wp_current);
+}
+
 void leftclick(int x, int y){ // another special part of update
-    if (brange(x, y, 0, 100, 440, 720)){
-        // add home function here
+    if (brange(x, y, 0+110, 100+110, 440, 720)){
+        if (wp_wait == 0){
+            changeWP();
+            wp_wait = 1;
+            delay(400);
+            wp_wait = 0;
+        }
     }
 }
 
@@ -32,7 +63,7 @@ void rightclick(int x, int y){ // yet another special part of update
 }
 
 void update(){
-    return;
+    
 }
 
 void taskbar(){
@@ -60,11 +91,11 @@ void app(char* name, char* color){
 }
 
 void start(){
+    while (pass_correct == 0){
+        login("1234");}
     taskbar();
     // each app should be 4 letters to be centered
-    app("poo", "blue");
-    app("poo", "green");
-    app("poo", "black");
+    app("wppr", "green");
 }
 
 
