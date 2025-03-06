@@ -21,7 +21,7 @@ def narwhal(input_features, datapoints_old):
     for j in range(len(datapoints)):
         for i in range(len(datapoints[j])):
             datapoints[j][i] = (datapoints[j][i] - minc) / (maxc - minc)
-
+    
     closest_points = []
 
     for point in datapoints:
@@ -38,7 +38,7 @@ def narwhal(input_features, datapoints_old):
 
     closest_points.sort(key=by_distance)
     first_closest = closest_points[0][0]
-    second_closest = closest_points[1][0]    
+    second_closest = closest_points[1][0]
 
     for i in range(len(first_closest)):
         if first_closest[i] == second_closest[i]:
@@ -60,4 +60,33 @@ def narwhal(input_features, datapoints_old):
         for i in range(len(first_closest) - 1):
             slope = (first_closest[i+1] - second_closest[i+1]) / (first_closest[i] - second_closest[i])
             new_point[j].append((slope * new_point[j][i]) + (first_closest[i+1] - (slope * first_closest[i])))
+    
+    closest_points = []
 
+    for point in new_point:
+        to_sqrt = 0
+
+        for i in range(len(input_features)):
+            to_sqrt += pow((input_features[i] - point[i]), 2)
+        
+        distance = math.sqrt(to_sqrt)
+        closest_points.append([point, distance])
+
+    closest_points.sort(key=by_distance)
+    preoutput = closest_points[0][0]
+
+    if preoutput[-1] < first_closest[-1]:
+        preoutput[-2] = preoutput[-2]*.7 + first_closest[-2]*.3
+    elif preoutput[-1] < second_closest[-1]:
+        preoutput[-2] = preoutput[-2]*.7 + second_closest[-2]*.3
+
+    avgreward = 0
+    for thing in datapoints:
+        avgreward += thing[-1]
+    avgreward /= len(datapoints)
+
+    experiment = 1 + (random.randint(-int(100 - avgreward)/2, int(100-avgreward)/2)/1000)
+
+    output = preoutput[-2] * experiment
+
+    return output
