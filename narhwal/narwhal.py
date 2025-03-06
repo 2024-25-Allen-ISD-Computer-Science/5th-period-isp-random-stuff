@@ -39,3 +39,25 @@ def narwhal(input_features, datapoints_old):
     closest_points.sort(key=by_distance)
     first_closest = closest_points[0][0]
     second_closest = closest_points[1][0]    
+
+    for i in range(len(first_closest)):
+        if first_closest[i] == second_closest[i]:
+            first_closest[i] *= 0.99999
+
+    new_point = [[input_features[0]]]
+
+    for i in range(len(input_features) - 1):
+        a = input_features[i+1]
+
+        while i >= 0:
+            slope = (first_closest[i+1] - second_closest[i+1]) / (first_closest[i] - second_closest[i])
+            a = (a - (first_closest[i+1] - (slope * first_closest[i])))/slope
+            i -= 1
+
+        new_point.append([a])
+
+    for j in range(len(new_point)):
+        for i in range(len(first_closest) - 1):
+            slope = (first_closest[i+1] - second_closest[i+1]) / (first_closest[i] - second_closest[i])
+            new_point[j].append((slope * new_point[j][i]) + (first_closest[i+1] - (slope * first_closest[i])))
+
