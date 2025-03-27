@@ -1,0 +1,58 @@
+def get_market_cap(ticker):
+    try:
+        time.sleep(10)
+        url = f'https://finance.yahoo.com/quote/{ticker}/'
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+        response = requests.get(url, headers=headers)
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        price_element = soup.find(attrs={"data-field": "marketCap"})
+
+        if not price_element:
+            return "failed"
+
+        T = 1000000000000
+        B = 1000000000
+        M = 1000000
+        actual = price_element.text.replace(",","").strip()
+        money = actual[-1]
+        actual = float(actual[:-1])
+        match(money):
+            case "T":
+                actual *= T
+            case "B":
+                actual *= B
+            case "M":
+                actual *= M
+            case _:
+                actual = price_element.text.replace(",","").strip()
+        return float(actual)
+    except:
+        time.sleep(30)
+        url = f'https://finance.yahoo.com/quote/{ticker}/'
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'}
+        response = requests.get(url, headers=headers)
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        price_element = soup.find(attrs={"data-field": "marketCap"})
+
+        if not price_element:
+            return "failed"
+
+        T = 1000000000000
+        B = 1000000000
+        M = 1000000
+        actual = price_element.text.replace(",","").strip()
+        money = actual[-1]
+        actual = float(actual[:-1])
+        match(money):
+            case "T":
+                actual *= T
+            case "B":
+                actual *= B
+            case "M":
+                actual *= M
+            case _:
+                actual = price_element.text.replace(",","").strip()
+        return float(actual)
+
