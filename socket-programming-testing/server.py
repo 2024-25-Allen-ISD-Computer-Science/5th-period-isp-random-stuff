@@ -11,7 +11,6 @@ DC_MSG = "!DC"
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
- # k means function goes here
 def handle_client(conn, addr):
     print(f"NEW CONNECTION: {addr} connected")
     connected = True

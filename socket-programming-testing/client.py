@@ -2,13 +2,12 @@ import socket
 
 HEADER = 64
 PORT = 8000
-SERVER = "192.168.1.205"
+SERVER = "172.17.0.16"
 FORMAT = "utf-8"
 DC_MSG = "!DC"
 ADDR = (SERVER, PORT)
 
 last_msg = ""
-# add TC reciever here
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
 
