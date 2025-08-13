@@ -1,1 +1,4 @@
-this is a thing
+# Potential ISP ideas
+- CodeHS discord clone
+- Stock model
+- 
