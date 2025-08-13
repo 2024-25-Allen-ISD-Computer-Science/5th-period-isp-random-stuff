@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="prose">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/prose.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
